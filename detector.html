@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title data-i18n="detector_title">🔍 AI Text Detector - Quick Web Tools</title>
+    <meta name="description" content="Reviews and comparisons of the best AI text detection tools like ZeroGPT, GPTZero, and Copyleaks.">
+    
+    <style>
+        /* ===== إعادة تعيين الأساسيات ===== */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background: #f0f4ff;
+            color: #1a202c;
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        /* ===== الهيدر ===== */
+        header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px 40px;
+            border-radius: 24px;
+            text-align: center;
+            margin-bottom: 30px;
+            box-shadow: 0 20px 60px rgba(102, 126, 234, 0.4);
+        }
+        
+        header h1 {
+            font-size: 2.5rem;
+            font-weight: 800;
+        }
+        
+        header h1 span {
+            color: #fbbf24;
+        }
+        
+        header p {
+            font-size: 1.1rem;
+            opacity: 0.95;
+            font-weight: 300;
+        }
+        
+        /* ===== شريط التنقل ===== */
+        nav {
+            background: rgba(255,255,255,0.85);
+            backdrop-filter: blur(20px);
+            padding: 15px 30px;
+            border-radius: 16px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            flex-wrap: wrap;
+            align-items: center;
+            border: 1px solid rgba(255,255,255,0.3);
+        }
+        
+        nav a {
+            color: #4a5568;
+            text-decoration: none;
+            font-weight: 600;
+            padding: 8px 20px;
+            border-radius: 30px;
+            transition: all 0.3s ease;
+            font-size: 0.95rem;
+        }
+        
+        nav a:hover {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
+        }
+        
+        nav a.active {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+        }
+        
+        .lang-btn {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            padding: 8px 22px;
+            border-radius: 30px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.95rem;
+        }
+        
+        .lang-btn:hover {
+            transform: translateY(-2px) scale(1.05);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+        }
+        
+        /* ===== قسم المقدمة ===== */
+        .intro-section {
+            background: white;
+            padding: 35px 40px;
+            border-radius: 24px;
+            margin: 30px 0;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+            border: 1px solid rgba(255,255,255,0.5);
+        }
+        
+        .intro-section h2 {
+            color: #1a202c;
+            margin-bottom: 15px;
+            font-size: 1.8rem;
+            font-weight: 700;
+        }
+        
+        .intro-section p {
+            color: #4a5568;
+            font-size: 1.05rem;
+            line-height: 1.8;
+        }
+        
+        /* ===== جدول المقارنة ===== */
+        .comparison-table {
+            background: white;
+            padding: 35px 40px;
+            border-radius: 24px;
+            margin: 30px 0;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+            border: 1px solid rgba(255,255,255,0.5);
+            overflow-x: auto;
+        }
+        
+        .comparison-table h2 {
+            color: #1a202c;
+            margin-bottom: 20px;
+            font-size: 1.8rem;
+            font-weight: 700;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.95rem;
+        }
+        
+        thead {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+        }
+        
+        th {
+            padding: 15px 20px;
+            text-align: left;
+            font-weight: 600;
+        }
+        
+        td {
+            padding: 15px 20px;
+            border-bottom: 1px solid #e2e8f0;
+            color: #4a5568;
+        }
+        
+        tr:hover td {
+            background: #f7fafc;
+        }
+        
+        .badge-free {
+            background: #48bb78;
+            color: white;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+        
+        .badge-paid {
+            background: #ed8936;
+            color: white;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+        
+        .badge-freemium {
+            background: #63b3ed;
+            color: white;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+        
+        .rating-stars {
+            color: #fbbf24;
+            letter-spacing: 2px;
+        }
+        
+        .btn-visit {
+            display: inline-block;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 8px 20px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.85rem;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-visit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+        }
+        
+        /* ===== بطاقات المراجعة ===== */
+        .review-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin: 30px 0;
+        }
+        
+        .review-card {
+            background: white;
+            padding: 30px 25px;
+            border-radius: 24px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+            border: 1px solid rgba(255,255,255,0.5);
+            transition: all 0.4s ease;
+        }
+        
+        .review-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 60px rgba(102, 126, 234, 0.15);
+        }
+        
+        .review-card .icon {
+            font-size: 3rem;
+            display: block;
+            margin-bottom: 15px;
+        }
+        
+        .review-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+            color: #1a202c;
+        }
+        
+        .review-card .rating {
+            color: #fbbf24;
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+        }
+        
+        .review-card .price {
+            font-weight: 700;
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+        
+        .review-card p {
+            color: #718096;
+            font-size: 0.95rem;
+            line-height: 1.7;
+            margin-bottom: 15px;
+        }
+        
+        .review-card .pros {
+            color: #48bb78;
+            font-size: 0.9rem;
+            margin-bottom: 5px;
+        }
+        
+        .review-card .cons {
+            color: #fc8181;
+            font-size: 0.9rem;
+        }
+        
+        /* ===== إعلانات ===== */
+        .ad-placeholder {
+            background: linear-gradient(135deg, #f7fafc, #edf2f7);
+            border-radius: 16px;
+            padding: 40px 20px;
+            text-align: center;
+            margin: 30px 0;
+            color: #a0aec0;
+            font-size: 0.9rem;
+            border: 2px dashed #cbd5e0;
+        }
+        
+        /* ===== فوتر ===== */
+        footer {
+            text-align: center;
+            padding: 30px;
+            color: #a0aec0;
+            border-top: 1px solid #e2e8f0;
+            margin-top: 30px;
+            font-size: 0.9rem;
+        }
+        
+        footer strong {
+            color: #667eea;
+        }
+        
+        /* ===== توافق الجوال ===== */
+        @media (max-width: 768px) {
+            header h1 { font-size: 1.8rem; }
+            nav { flex-direction: column; align-items: center; }
+            .intro-section { padding: 25px 20px; }
+            .comparison-table { padding: 25px 20px; }
+            table { font-size: 0.85rem; }
+            th, td { padding: 10px 12px; }
+            .review-cards { grid-template-columns: 1fr; }
+        }
+        
+        @media (max-width: 480px) {
+            header h1 { font-size: 1.5rem; }
+            table { font-size: 0.75rem; }
+            th, td { padding: 8px 8px; }
+            .btn-visit { font-size: 0.75rem; padding: 6px 14px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+
+        <!-- ===== الهيدر ===== -->
+        <header>
+            <h1>🔍 AI Text <span>Detector</span></h1>
+            <p data-i18n="detector_subtitle">Reviews and comparisons of the best AI text detection tools</p>
+        </header>
+
+        <!-- ===== شريط التنقل ===== -->
+        <nav>
+            <a href="index.html" data-i18n="nav_home">🏠 Home</a>
+            <a href="stopwatch.html" data-i18n="nav_stopwatch">⏱️ Stopwatch</a>
+            <a href="detector.html" class="active" data-i18n="nav_detector">🔍 AI Detector</a>
+            <a href="downloader.html" data-i18n="nav_downloader">📥 Downloader</a>
+            <a href="blog.html" data-i18n="nav_blog">📝 Blog</a>
+            <button id="langSwitchBtn" class="lang-btn" onclick="switchLanguage()">🌐 العربية</button>
+        </nav>
+
+        <!-- ===== إعلان ===== -->
+        <div class="ad-placeholder" data-i18n="ad_placeholder">📢 [AdSense Ad will appear here]</div>
+
+        <!-- ===== المقدمة ===== -->
+        <div class="intro-section">
+            <h2 data-i18n="detector_intro_title">📌 What Are AI Text Detectors?</h2>
+            <p data-i18n="detector_intro_text">AI text detectors are tools that analyze text to determine if it was written by a human or generated by artificial intelligence like ChatGPT, Claude, or GPT-4. These tools are essential for educators, content creators, and professionals who need to verify the authenticity of written content.</p>
+            <br>
+            <p data-i18n="detector_intro_text2">Below is a comparison of the best AI detection tools available in 2026, including their features, pricing, and accuracy.</p>
+        </div>
+
+        <!-- ===== إعلان ===== -->
+        <div class="ad-placeholder" data-i18n="ad_placeholder">📢 [AdSense Ad will appear here]</div>
+
+        <!-- ===== جدول المقارنة ===== -->
+        <div class="comparison-table">
+            <h2 data-i18n="detector_table_title">📊 Comparison Table</h2>
+            
+            <table>
+                <thead>
+                    <tr>
+                        <th data-i18n="detector_table_tool">Tool</th>
+                        <th data-i18n="detector_table_accuracy">Accuracy</th>
+                        <th data-i18n="detector_table_price">Price</th>
+                        <th data-i18n="detector_table_languages">Languages</th>
+                        <th data-i18n="detector_table_rating">Rating</th>
+                        <th data-i18n="detector_table_action">Visit</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>ZeroGPT</strong></td>
+                        <td>99%</td>
+                        <td><span class="badge-free">Free</span></td>
+                        <td>30+ languages</td>
+                        <td><span class="rating-stars">★★★★★</span></td>
+                        <td><a href="https://www.zerogpt.com" target="_blank" class="btn-visit">Visit →</a></td>
+                    </tr>
+                    <tr>
+                        <td><strong>GPTZero</strong></td>
+                        <td>99%</td>
+                        <td><span class="badge-freemium">Freemium</span></td>
+                        <td>English, French, Spanish</td>
+                        <td><span class="rating-stars">★★★★★</span></td>
+                        <td><a href="https://gptzero.me" target="_blank" class="btn-visit">Visit →</a></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Copyleaks</strong></td>
+                        <td>99%</td>
+                        <td><span class="badge-paid">Paid</span></td>
+                        <td>100+ languages</td>
+                        <td><span class="rating-stars">★★★★☆</span></td>
+                        <td><a href="https://copyleaks.com/ai-content-detector" target="_blank" class="btn-visit">Visit →</a></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Originality.ai</strong></td>
+                        <td>98%</td>
+                        <td><span class="badge-paid">Paid</span></td>
+                        <td>English only</td>
+                        <td><span class="rating-stars">★★★★☆</span></td>
+                        <td><a href="https://originality.ai" target="_blank" class="btn-visit">Visit →</a></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- ===== إعلان ===== -->
+        <div class="ad-placeholder" data-i18n="ad_placeholder">📢 [AdSense Ad will appear here]</div>
+
+        <!-- ===== بطاقات المراجعة ===== -->
+        <div class="review-cards">
+            
+            <div class="review-card">
+                <span class="icon">🛡️</span>
+                <h3>ZeroGPT</h3>
+                <div class="rating">★★★★★</div>
+                <div class="price">💰 Free</div>
+                <p>ZeroGPT is one of the most popular AI text detectors. It offers high accuracy (99%) and supports multiple languages. Its simple interface makes it easy for anyone to use.</p>
+                <p class="pros">✅ High accuracy, Free, Multi-language</p>
+                <p class="cons">❌ Limited features in free version</p>
+                <a href="https://www.zerogpt.com" target="_blank" class="btn-visit">Visit ZeroGPT →</a>
+            </div>
+            
+            <div class="review-card">
+                <span class="icon">🎓</span>
+                <h3>GPTZero</h3>
+                <div class="rating">★★★★★</div>
+                <div class="price">💰 Freemium</div>
+                <p>GPTZero is trusted by over 1 million educators worldwide. It specializes in detecting AI-generated content from ChatGPT, Claude, and Gemini with 99% accuracy.</p>
+                <p class="pros">✅ Trusted by educators, High accuracy, French support</p>
+                <p class="cons">❌ Paid plans for advanced features</p>
+                <a href="https://gptzero.me" target="_blank" class="btn-visit">Visit GPTZero →</a>
+            </div>
+            
+            <div class="review-card">
+                <span class="icon">🔎</span>
+                <h3>Copyleaks</h3>
+                <div class="rating">★★★★☆</div>
+                <div class="price">💰 Paid</div>
+                <p>Copyleaks offers a comprehensive AI detection tool with support for over 100 languages. It's ideal for businesses and educational institutions that need enterprise-level features.</p>
+                <p class="pros">✅ 100+ languages, Enterprise features</p>
+                <p class="cons">❌ No free version</p>
+                <a href="https://copyleaks.com/ai-content-detector" target="_blank" class="btn-visit">Visit Copyleaks →</a>
+            </div>
+            
+        </div>
+
+        <!-- ===== إعلان ===== -->
+        <div class="ad-placeholder" data-i18n="ad_placeholder">📢 [AdSense Ad will appear here]</div>
+
+        <!-- ===== نصائح ===== -->
+        <div class="intro-section">
+            <h2 data-i18n="detector_tips_title">💡 Tips for Using AI Detectors</h2>
+            <ul style="list-style: none; padding: 0;">
+                <li style="padding: 10px 0; border-bottom: 1px solid #f0f4ff; color: #4a5568;">
+                    🔹 <strong data-i18n="detector_tips_1">Test multiple tools</strong> – Different detectors may give slightly different results
+                </li>
+                <li style="padding: 10px 0; border-bottom: 1px solid #f0f4ff; color: #4a5568;">
+                    🔹 <strong data-i18n="detector_tips_2">Use longer text</strong> – AI detection is more accurate with longer text (200+ words)
+                </li>
+                <li style="padding: 10px 0; border-bottom: 1px solid #f0f4ff; color: #4a5568;">
+                    🔹 <strong data-i18n="detector_tips_3">Check for false positives</strong> – Some human-written text may be flagged as AI
+                </li>
+                <li style="padding: 10px 0; border-bottom: none; color: #4a5568;">
+                    🔹 <strong data-i18n="detector_tips_4">Combine with plagiarism checkers</strong> – For complete content verification
+                </li>
+            </ul>
+        </div>
+
+        <!-- ===== إعلان ===== -->
+        <div class="ad-placeholder" data-i18n="ad_placeholder">📢 [AdSense Ad will appear here]</div>
+
+        <!-- ===== الفوتر ===== -->
+        <footer>
+            <p data-i18n="footer_text">All rights reserved © 2026 · <strong>Quick Web Tools</strong></p>
+            <p style="font-size: 0.85rem; margin-top: 5px;" data-i18n="footer_sub">QuickTools – Free tools for everyone</p>
+        </footer>
+
+    </div>
+
+    <!-- ===== ملفات الجافاسكريبت ===== -->
+    <script src="translations.js"></script>
+    <script>
+        function switchLanguage() {
+            const newLang = currentLang === 'en' ? 'ar' : 'en';
+            setLanguage(newLang);
+        }
+    </script>
+
+</body>
+</html>
