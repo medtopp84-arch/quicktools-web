@@ -1,0 +1,693 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title data-i18n="downloader_title">📥 Video Downloader - Quick Web Tools</title>
+    <meta name="description" content="A complete guide to the best video download tools from Instagram, YouTube, and more like FastDl, SaveFrom, and SnapInsta.">
+    
+    <style>
+        /* ===== إعادة تعيين الأساسيات ===== */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background: #f0f4ff;
+            color: #1a202c;
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        /* ===== الهيدر ===== */
+        header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px 40px;
+            border-radius: 24px;
+            text-align: center;
+            margin-bottom: 30px;
+            box-shadow: 0 20px 60px rgba(102, 126, 234, 0.4);
+        }
+        
+        header h1 {
+            font-size: 2.5rem;
+            font-weight: 800;
+        }
+        
+        header h1 span {
+            color: #fbbf24;
+        }
+        
+        header p {
+            font-size: 1.1rem;
+            opacity: 0.95;
+            font-weight: 300;
+        }
+        
+        /* ===== شريط التنقل ===== */
+        nav {
+            background: rgba(255,255,255,0.85);
+            backdrop-filter: blur(20px);
+            padding: 15px 30px;
+            border-radius: 16px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            flex-wrap: wrap;
+            align-items: center;
+            border: 1px solid rgba(255,255,255,0.3);
+        }
+        
+        nav a {
+            color: #4a5568;
+            text-decoration: none;
+            font-weight: 600;
+            padding: 8px 20px;
+            border-radius: 30px;
+            transition: all 0.3s ease;
+            font-size: 0.95rem;
+        }
+        
+        nav a:hover {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
+        }
+        
+        nav a.active {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+        }
+        
+        .lang-btn {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            padding: 8px 22px;
+            border-radius: 30px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.95rem;
+        }
+        
+        .lang-btn:hover {
+            transform: translateY(-2px) scale(1.05);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+        }
+        
+        /* ===== أداة التحميل (مربع الإدخال) ===== */
+        .downloader-tool {
+            background: white;
+            padding: 40px 40px;
+            border-radius: 24px;
+            margin: 30px 0;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+            border: 1px solid rgba(255,255,255,0.5);
+            text-align: center;
+        }
+        
+        .downloader-tool h2 {
+            color: #1a202c;
+            margin-bottom: 10px;
+            font-size: 1.8rem;
+            font-weight: 700;
+        }
+        
+        .downloader-tool p {
+            color: #718096;
+            margin-bottom: 25px;
+            font-size: 1.05rem;
+        }
+        
+        .input-group {
+            display: flex;
+            gap: 15px;
+            max-width: 700px;
+            margin: 0 auto;
+            flex-wrap: wrap;
+        }
+        
+        .input-group input {
+            flex: 1;
+            padding: 16px 24px;
+            border: 2px solid #e2e8f0;
+            border-radius: 16px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            outline: none;
+            min-width: 200px;
+            background: #f7fafc;
+        }
+        
+        .input-group input:focus {
+            border-color: #667eea;
+            box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.1);
+            background: white;
+        }
+        
+        .input-group input::placeholder {
+            color: #a0aec0;
+        }
+        
+        .input-group .btn-download {
+            padding: 16px 40px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            border-radius: 16px;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+        }
+        
+        .input-group .btn-download:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 30px rgba(102, 126, 234, 0.4);
+        }
+        
+        .supported-platforms {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+        
+        .supported-platforms span {
+            background: #edf2f7;
+            padding: 6px 18px;
+            border-radius: 30px;
+            font-size: 0.85rem;
+            color: #4a5568;
+            font-weight: 600;
+        }
+        
+        /* ===== المقدمة ===== */
+        .intro-section {
+            background: white;
+            padding: 35px 40px;
+            border-radius: 24px;
+            margin: 30px 0;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+            border: 1px solid rgba(255,255,255,0.5);
+        }
+        
+        .intro-section h2 {
+            color: #1a202c;
+            margin-bottom: 15px;
+            font-size: 1.8rem;
+            font-weight: 700;
+        }
+        
+        .intro-section p {
+            color: #4a5568;
+            font-size: 1.05rem;
+            line-height: 1.8;
+        }
+        
+        /* ===== جدول المقارنة ===== */
+        .comparison-table {
+            background: white;
+            padding: 35px 40px;
+            border-radius: 24px;
+            margin: 30px 0;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+            border: 1px solid rgba(255,255,255,0.5);
+            overflow-x: auto;
+        }
+        
+        .comparison-table h2 {
+            color: #1a202c;
+            margin-bottom: 20px;
+            font-size: 1.8rem;
+            font-weight: 700;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.95rem;
+        }
+        
+        thead {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+        }
+        
+        th {
+            padding: 15px 20px;
+            text-align: left;
+            font-weight: 600;
+        }
+        
+        td {
+            padding: 15px 20px;
+            border-bottom: 1px solid #e2e8f0;
+            color: #4a5568;
+        }
+        
+        tr:hover td {
+            background: #f7fafc;
+        }
+        
+        .badge-free {
+            background: #48bb78;
+            color: white;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+        
+        .badge-paid {
+            background: #ed8936;
+            color: white;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+        
+        .badge-freemium {
+            background: #63b3ed;
+            color: white;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+        
+        .rating-stars {
+            color: #fbbf24;
+            letter-spacing: 2px;
+        }
+        
+        .btn-visit {
+            display: inline-block;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 8px 20px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.85rem;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-visit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+        }
+        
+        /* ===== بطاقات المراجعة ===== */
+        .review-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin: 30px 0;
+        }
+        
+        .review-card {
+            background: white;
+            padding: 30px 25px;
+            border-radius: 24px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+            border: 1px solid rgba(255,255,255,0.5);
+            transition: all 0.4s ease;
+        }
+        
+        .review-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 60px rgba(102, 126, 234, 0.15);
+        }
+        
+        .review-card .icon {
+            font-size: 3rem;
+            display: block;
+            margin-bottom: 15px;
+        }
+        
+        .review-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+            color: #1a202c;
+        }
+        
+        .review-card .rating {
+            color: #fbbf24;
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+        }
+        
+        .review-card .price {
+            font-weight: 700;
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+        
+        .review-card p {
+            color: #718096;
+            font-size: 0.95rem;
+            line-height: 1.7;
+            margin-bottom: 15px;
+        }
+        
+        .review-card .pros {
+            color: #48bb78;
+            font-size: 0.9rem;
+            margin-bottom: 5px;
+        }
+        
+        .review-card .cons {
+            color: #fc8181;
+            font-size: 0.9rem;
+        }
+        
+        /* ===== نصائح ===== */
+        .tips-section {
+            background: white;
+            padding: 35px 40px;
+            border-radius: 24px;
+            margin: 30px 0;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+            border: 1px solid rgba(255,255,255,0.5);
+        }
+        
+        .tips-section h2 {
+            color: #1a202c;
+            margin-bottom: 15px;
+            font-size: 1.8rem;
+            font-weight: 700;
+        }
+        
+        .tips-section ul {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .tips-section ul li {
+            padding: 10px 0;
+            border-bottom: 1px solid #f0f4ff;
+            color: #4a5568;
+            font-size: 1rem;
+        }
+        
+        .tips-section ul li:last-child {
+            border-bottom: none;
+        }
+        
+        /* ===== إعلانات ===== */
+        .ad-placeholder {
+            background: linear-gradient(135deg, #f7fafc, #edf2f7);
+            border-radius: 16px;
+            padding: 40px 20px;
+            text-align: center;
+            margin: 30px 0;
+            color: #a0aec0;
+            font-size: 0.9rem;
+            border: 2px dashed #cbd5e0;
+        }
+        
+        /* ===== فوتر ===== */
+        footer {
+            text-align: center;
+            padding: 30px;
+            color: #a0aec0;
+            border-top: 1px solid #e2e8f0;
+            margin-top: 30px;
+            font-size: 0.9rem;
+        }
+        
+        footer strong {
+            color: #667eea;
+        }
+        
+        /* ===== توافق الجوال ===== */
+        @media (max-width: 768px) {
+            header h1 { font-size: 1.8rem; }
+            nav { flex-direction: column; align-items: center; }
+            .downloader-tool { padding: 25px 20px; }
+            .input-group { flex-direction: column; }
+            .input-group input { width: 100%; }
+            .input-group .btn-download { width: 100%; }
+            .intro-section { padding: 25px 20px; }
+            .comparison-table { padding: 25px 20px; }
+            table { font-size: 0.85rem; }
+            th, td { padding: 10px 12px; }
+            .review-cards { grid-template-columns: 1fr; }
+            .tips-section { padding: 25px 20px; }
+        }
+        
+        @media (max-width: 480px) {
+            header h1 { font-size: 1.5rem; }
+            table { font-size: 0.75rem; }
+            th, td { padding: 8px 8px; }
+            .btn-visit { font-size: 0.75rem; padding: 6px 14px; }
+            .supported-platforms span { font-size: 0.75rem; padding: 4px 12px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+
+        <!-- ===== الهيدر ===== -->
+        <header>
+            <h1>📥 Video <span>Downloader</span></h1>
+            <p data-i18n="downloader_subtitle">A complete guide to the best video download tools from Instagram, YouTube, and more</p>
+        </header>
+
+        <!-- ===== شريط التنقل ===== -->
+        <nav>
+            <a href="index.html" data-i18n="nav_home">🏠 Home</a>
+            <a href="stopwatch.html" data-i18n="nav_stopwatch">⏱️ Stopwatch</a>
+            <a href="detector.html" data-i18n="nav_detector">🔍 AI Detector</a>
+            <a href="downloader.html" class="active" data-i18n="nav_downloader">📥 Downloader</a>
+            <a href="blog.html" data-i18n="nav_blog">📝 Blog</a>
+            <button id="langSwitchBtn" class="lang-btn" onclick="switchLanguage()">🌐 العربية</button>
+        </nav>
+
+        <!-- ===== إعلان ===== -->
+        <div class="ad-placeholder" data-i18n="ad_placeholder">📢 [AdSense Ad will appear here]</div>
+
+        <!-- ===== أداة التحميل (مربع الإدخال) ===== -->
+        <div class="downloader-tool">
+            <h2 data-i18n="downloader_tool_title">📥 Download Videos & Photos</h2>
+            <p data-i18n="downloader_tool_subtitle">Paste the link from Instagram, YouTube, or TikTok to download content</p>
+            
+            <div class="input-group">
+                <input type="text" id="videoLink" placeholder="🔗 Paste Instagram, YouTube, or TikTok link here..." data-i18n="downloader_placeholder">
+                <button class="btn-download" id="downloadBtn" data-i18n="downloader_btn">⬇️ Download</button>
+            </div>
+            
+            <div class="supported-platforms">
+                <span>📸 Instagram</span>
+                <span>▶️ YouTube</span>
+                <span>🎵 TikTok</span>
+                <span>📹 Facebook</span>
+                <span>🎬 Twitter/X</span>
+            </div>
+            <div style="margin-top: 15px; font-size: 0.85rem; color: #a0aec0;">
+                ⚡ <span data-i18n="downloader_note">Note: This tool redirects you to the best downloader for your link</span>
+            </div>
+        </div>
+
+        <!-- ===== إعلان ===== -->
+        <div class="ad-placeholder" data-i18n="ad_placeholder">📢 [AdSense Ad will appear here]</div>
+
+        <!-- ===== المقدمة ===== -->
+        <div class="intro-section">
+            <h2 data-i18n="downloader_intro_title">📌 What Are Video Downloaders?</h2>
+            <p data-i18n="downloader_intro_text">Video downloaders are online tools that allow you to save videos, photos, Reels, and Stories from popular social media platforms like Instagram, YouTube, TikTok, and Facebook. These tools are perfect for content creators, educators, and anyone who wants to save their favorite content offline.</p>
+            <br>
+            <p data-i18n="downloader_intro_text2">Below is a comparison of the best video download tools available in 2026, including their features, supported platforms, and pricing.</p>
+        </div>
+
+        <!-- ===== إعلان ===== -->
+        <div class="ad-placeholder" data-i18n="ad_placeholder">📢 [AdSense Ad will appear here]</div>
+
+        <!-- ===== جدول المقارنة ===== -->
+        <div class="comparison-table">
+            <h2 data-i18n="downloader_table_title">📊 Comparison Table</h2>
+            
+            <table>
+                <thead>
+                    <tr>
+                        <th data-i18n="downloader_table_tool">Tool</th>
+                        <th data-i18n="downloader_table_platforms">Platforms</th>
+                        <th data-i18n="downloader_table_price">Price</th>
+                        <th data-i18n="downloader_table_quality">Quality</th>
+                        <th data-i18n="downloader_table_rating">Rating</th>
+                        <th data-i18n="downloader_table_action">Visit</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>FastDl.app</strong></td>
+                        <td>Instagram, YouTube</td>
+                        <td><span class="badge-free">Free</span></td>
+                        <td>HD / 4K</td>
+                        <td><span class="rating-stars">★★★★★</span></td>
+                        <td><a href="https://fastdl.app" target="_blank" class="btn-visit">Visit →</a></td>
+                    </tr>
+                    <tr>
+                        <td><strong>SaveFrom.net</strong></td>
+                        <td>YouTube, Facebook, TikTok</td>
+                        <td><span class="badge-free">Free</span></td>
+                        <td>HD / 4K</td>
+                        <td><span class="rating-stars">★★★★☆</span></td>
+                        <td><a href="https://savefrom.net" target="_blank" class="btn-visit">Visit →</a></td>
+                    </tr>
+                    <tr>
+                        <td><strong>SnapInsta</strong></td>
+                        <td>Instagram</td>
+                        <td><span class="badge-free">Free</span></td>
+                        <td>HD / 4K</td>
+                        <td><span class="rating-stars">★★★★☆</span></td>
+                        <td><a href="https://snapinsta.app" target="_blank" class="btn-visit">Visit →</a></td>
+                    </tr>
+                    <tr>
+                        <td><strong>SSSTikTok</strong></td>
+                        <td>TikTok</td>
+                        <td><span class="badge-free">Free</span></td>
+                        <td>HD</td>
+                        <td><span class="rating-stars">★★★★☆</span></td>
+                        <td><a href="https://ssstik.io" target="_blank" class="btn-visit">Visit →</a></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- ===== إعلان ===== -->
+        <div class="ad-placeholder" data-i18n="ad_placeholder">📢 [AdSense Ad will appear here]</div>
+
+        <!-- ===== بطاقات المراجعة ===== -->
+        <div class="review-cards">
+            
+            <div class="review-card">
+                <span class="icon">⚡</span>
+                <h3>FastDl.app</h3>
+                <div class="rating">★★★★★</div>
+                <div class="price">💰 Free</div>
+                <p>FastDl is the fastest Instagram and YouTube downloader available. It supports high-quality downloads (up to 4K) and works on all devices including smartphones and tablets.</p>
+                <p class="pros">✅ Fast downloads, HD quality, No registration</p>
+                <p class="cons">❌ Limited to Instagram & YouTube</p>
+                <a href="https://fastdl.app" target="_blank" class="btn-visit">Visit FastDl →</a>
+            </div>
+            
+            <div class="review-card">
+                <span class="icon">🌐</span>
+                <h3>SaveFrom.net</h3>
+                <div class="rating">★★★★☆</div>
+                <div class="price">💰 Free</div>
+                <p>SaveFrom is a popular multi-platform downloader that supports YouTube, Facebook, TikTok, and more. It offers multiple quality options and is very easy to use.</p>
+                <p class="pros">✅ Multi-platform, HD quality, Browser extension</p>
+                <p class="cons">❌ Ads can be distracting</p>
+                <a href="https://savefrom.net" target="_blank" class="btn-visit">Visit SaveFrom →</a>
+            </div>
+            
+            <div class="review-card">
+                <span class="icon">📸</span>
+                <h3>SnapInsta</h3>
+                <div class="rating">★★★★☆</div>
+                <div class="price">💰 Free</div>
+                <p>SnapInsta is a dedicated Instagram downloader that allows you to save photos, videos, Reels, and Stories with just a few clicks.</p>
+                <p class="pros">✅ Instagram-focused, High quality, Fast</p>
+                <p class="cons">❌ Only supports Instagram</p>
+                <a href="https://snapinsta.app" target="_blank" class="btn-visit">Visit SnapInsta →</a>
+            </div>
+            
+        </div>
+
+        <!-- ===== إعلان ===== -->
+        <div class="ad-placeholder" data-i18n="ad_placeholder">📢 [AdSense Ad will appear here]</div>
+
+        <!-- ===== نصائح ===== -->
+        <div class="tips-section">
+            <h2 data-i18n="downloader_tips_title">💡 Tips for Using Video Downloaders</h2>
+            <ul>
+                <li data-i18n="downloader_tips_1">🔹 <strong>Check your source</strong> – Make sure you have the right to download the content</li>
+                <li data-i18n="downloader_tips_2">🔹 <strong>Choose the right quality</strong> – Download in HD for the best viewing experience</li>
+                <li data-i18n="downloader_tips_3">🔹 <strong>Be careful with ads</strong> – Some downloader sites may have intrusive ads</li>
+                <li data-i18n="downloader_tips_4">🔹 <strong>Use multiple tools</strong> – Different tools may work better for different platforms</li>
+                <li data-i18n="downloader_tips_5">🔹 <strong>Check for file format</strong> – MP4 is the most compatible format</li>
+            </ul>
+        </div>
+
+        <!-- ===== إعلان ===== -->
+        <div class="ad-placeholder" data-i18n="ad_placeholder">📢 [AdSense Ad will appear here]</div>
+
+        <!-- ===== الفوتر ===== -->
+        <footer>
+            <p data-i18n="footer_text">All rights reserved © 2026 · <strong>Quick Web Tools</strong></p>
+            <p style="font-size: 0.85rem; margin-top: 5px;" data-i18n="footer_sub">QuickTools – Free tools for everyone</p>
+        </footer>
+
+    </div>
+
+    <!-- ===== ملفات الجافاسكريبت ===== -->
+    <script src="translations.js"></script>
+    <script>
+        function switchLanguage() {
+            const newLang = currentLang === 'en' ? 'ar' : 'en';
+            setLanguage(newLang);
+        }
+
+        // ============================
+        // كود أداة التحميل
+        // ============================
+        document.addEventListener('DOMContentLoaded', function() {
+            const downloadBtn = document.getElementById('downloadBtn');
+            const videoLinkInput = document.getElementById('videoLink');
+
+            function handleDownload() {
+                let link = videoLinkInput.value.trim();
+                if (!link) {
+                    alert('Please paste a link from Instagram, YouTube, or TikTok');
+                    return;
+                }
+
+                // محاولة التعرف على المنصة وتوجيه المستخدم إلى الأداة المناسبة
+                let redirectUrl = '';
+                
+                if (link.includes('instagram.com')) {
+                    redirectUrl = 'https://fastdl.app/instagram-downloader?url=' + encodeURIComponent(link);
+                } else if (link.includes('youtube.com') || link.includes('youtu.be')) {
+                    redirectUrl = 'https://savefrom.net/#' + encodeURIComponent(link);
+                } else if (link.includes('tiktok.com')) {
+                    redirectUrl = 'https://ssstik.io/#' + encodeURIComponent(link);
+                } else if (link.includes('facebook.com')) {
+                    redirectUrl = 'https://savefrom.net/#' + encodeURIComponent(link);
+                } else {
+                    alert('Please enter a valid link from Instagram, YouTube, TikTok, or Facebook');
+                    return;
+                }
+
+                // فتح الرابط في نافذة جديدة
+                window.open(redirectUrl, '_blank');
+            }
+
+            downloadBtn.addEventListener('click', handleDownload);
+            
+            videoLinkInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    handleDownload();
+                }
+            });
+        });
+    </script>
+
+</body>
+</html>
