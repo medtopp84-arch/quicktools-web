@@ -7,48 +7,127 @@
     <meta name="description" content="Free online stopwatch and timer. Perfect for studying, cooking, or exercise.">
     
     <style>
-        /* ===== التصميم الأساسي ===== */
+        /* ===== إعادة تعيين الأساسيات ===== */
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #f0f4f8; color: #1a202c; line-height: 1.6; padding: 20px; }
-        .container { max-width: 1100px; margin: 0 auto; }
+        
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background: #f0f4ff;
+            color: #1a202c;
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
         
         /* ===== الهيدر ===== */
-        header { background: linear-gradient(135deg, #2d3748, #1a202c); color: white; padding: 30px 30px; border-radius: 20px; text-align: center; margin-bottom: 30px; }
-        header h1 { font-size: 2.2rem; margin-bottom: 10px; }
-        header h1 span { color: #63b3ed; }
-        header p { font-size: 1.1rem; opacity: 0.9; }
+        header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px 40px;
+            border-radius: 24px;
+            text-align: center;
+            margin-bottom: 30px;
+            box-shadow: 0 20px 60px rgba(102, 126, 234, 0.4);
+        }
+        
+        header h1 {
+            font-size: 2.5rem;
+            font-weight: 800;
+        }
+        
+        header h1 span {
+            color: #fbbf24;
+        }
+        
+        header p {
+            font-size: 1.1rem;
+            opacity: 0.95;
+            font-weight: 300;
+        }
         
         /* ===== شريط التنقل ===== */
-        nav { background: white; padding: 15px 25px; border-radius: 15px; margin-bottom: 30px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; align-items: center; }
-        nav a { color: #2d3748; text-decoration: none; font-weight: 600; padding: 8px 18px; border-radius: 30px; transition: 0.3s; }
-        nav a:hover { background: #63b3ed; color: white; }
-        nav a.active { background: #63b3ed; color: white; }
+        nav {
+            background: rgba(255,255,255,0.85);
+            backdrop-filter: blur(20px);
+            padding: 15px 30px;
+            border-radius: 16px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            flex-wrap: wrap;
+            align-items: center;
+            border: 1px solid rgba(255,255,255,0.3);
+        }
         
-        /* ===== زر تغيير اللغة ===== */
-        .lang-btn { background: #63b3ed; color: white; border: none; padding: 8px 20px; border-radius: 30px; font-weight: 600; cursor: pointer; transition: 0.3s; }
-        .lang-btn:hover { background: #2b6cb0; transform: scale(1.05); }
+        nav a {
+            color: #4a5568;
+            text-decoration: none;
+            font-weight: 600;
+            padding: 8px 20px;
+            border-radius: 30px;
+            transition: all 0.3s ease;
+            font-size: 0.95rem;
+        }
+        
+        nav a:hover {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
+        }
+        
+        nav a.active {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+        }
+        
+        .lang-btn {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            padding: 8px 22px;
+            border-radius: 30px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.95rem;
+        }
+        
+        .lang-btn:hover {
+            transform: translateY(-2px) scale(1.05);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+        }
         
         /* ===== أداة ساعة الإيقاف ===== */
         .tool-container {
             background: white;
-            padding: 40px 30px;
-            border-radius: 20px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.06);
+            padding: 50px 40px;
+            border-radius: 24px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.06);
             text-align: center;
             margin: 30px 0;
+            border: 1px solid rgba(255,255,255,0.5);
         }
         
         .stopwatch-display {
-            font-size: 4.5rem;
+            font-size: 5rem;
             font-weight: 700;
             font-family: 'Courier New', monospace;
-            color: #2d3748;
-            background: #f7fafc;
+            color: #1a202c;
+            background: linear-gradient(135deg, #f7fafc, #edf2f7);
             padding: 30px 20px;
-            border-radius: 15px;
-            margin-bottom: 25px;
-            letter-spacing: 3px;
+            border-radius: 16px;
+            margin-bottom: 30px;
+            letter-spacing: 4px;
             border: 2px solid #e2e8f0;
+            box-shadow: inset 0 2px 10px rgba(0,0,0,0.04);
         }
         
         .stopwatch-controls {
@@ -56,39 +135,74 @@
             justify-content: center;
             gap: 15px;
             flex-wrap: wrap;
-            margin-bottom: 20px;
+            margin-bottom: 25px;
         }
         
         .stopwatch-controls button {
-            padding: 12px 35px;
+            padding: 14px 35px;
             border: none;
             border-radius: 30px;
             font-size: 1.1rem;
             font-weight: 600;
             cursor: pointer;
-            transition: 0.3s;
+            transition: all 0.3s ease;
             min-width: 120px;
         }
         
-        .btn-start { background: #48bb78; color: white; }
-        .btn-start:hover { background: #38a169; transform: scale(1.05); }
-        .btn-start:disabled { background: #a0aec0; cursor: not-allowed; transform: none; }
+        .stopwatch-controls button:hover:not(:disabled) {
+            transform: translateY(-3px);
+        }
         
-        .btn-pause { background: #ed8936; color: white; }
-        .btn-pause:hover { background: #dd6b20; transform: scale(1.05); }
-        .btn-pause:disabled { background: #a0aec0; cursor: not-allowed; transform: none; }
+        .stopwatch-controls button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
         
-        .btn-reset { background: #fc8181; color: white; }
-        .btn-reset:hover { background: #f56565; transform: scale(1.05); }
+        .btn-start {
+            background: linear-gradient(135deg, #48bb78, #38a169);
+            color: white;
+            box-shadow: 0 4px 15px rgba(72, 187, 120, 0.3);
+        }
         
-        .btn-lap { background: #63b3ed; color: white; }
-        .btn-lap:hover { background: #4299e1; transform: scale(1.05); }
-        .btn-lap:disabled { background: #a0aec0; cursor: not-allowed; transform: none; }
+        .btn-start:hover:not(:disabled) {
+            box-shadow: 0 8px 30px rgba(72, 187, 120, 0.4);
+        }
         
-        /* ===== لائحة اللفات (Laps) ===== */
+        .btn-pause {
+            background: linear-gradient(135deg, #ed8936, #dd6b20);
+            color: white;
+            box-shadow: 0 4px 15px rgba(237, 137, 54, 0.3);
+        }
+        
+        .btn-pause:hover:not(:disabled) {
+            box-shadow: 0 8px 30px rgba(237, 137, 54, 0.4);
+        }
+        
+        .btn-reset {
+            background: linear-gradient(135deg, #fc8181, #f56565);
+            color: white;
+            box-shadow: 0 4px 15px rgba(252, 129, 129, 0.3);
+        }
+        
+        .btn-reset:hover:not(:disabled) {
+            box-shadow: 0 8px 30px rgba(252, 129, 129, 0.4);
+        }
+        
+        .btn-lap {
+            background: linear-gradient(135deg, #63b3ed, #4299e1);
+            color: white;
+            box-shadow: 0 4px 15px rgba(99, 179, 237, 0.3);
+        }
+        
+        .btn-lap:hover:not(:disabled) {
+            box-shadow: 0 8px 30px rgba(99, 179, 237, 0.4);
+        }
+        
+        /* ===== لائحة اللفات ===== */
         .laps-container {
             background: #f7fafc;
-            border-radius: 15px;
+            border-radius: 16px;
             padding: 20px;
             margin-top: 20px;
             max-height: 250px;
@@ -100,41 +214,104 @@
             color: #4a5568;
             margin-bottom: 15px;
             font-size: 1.1rem;
+            font-weight: 600;
         }
         
         .lap-item {
             display: flex;
             justify-content: space-between;
-            padding: 8px 15px;
+            padding: 10px 15px;
             border-bottom: 1px solid #e2e8f0;
             font-family: 'Courier New', monospace;
             font-size: 1rem;
+            background: white;
+            border-radius: 8px;
+            margin-bottom: 5px;
         }
         
-        .lap-item:last-child { border-bottom: none; }
-        .lap-item .lap-number { color: #718096; font-weight: 600; }
-        .lap-item .lap-time { color: #2d3748; font-weight: 600; }
+        .lap-item:last-child { border-bottom: none; margin-bottom: 0; }
+        .lap-item .lap-number { color: #667eea; font-weight: 700; }
+        .lap-item .lap-time { color: #1a202c; font-weight: 600; }
         
-        .no-laps { color: #a0aec0; font-style: italic; padding: 15px; }
+        .no-laps {
+            color: #a0aec0;
+            font-style: italic;
+            padding: 20px;
+            text-align: center;
+        }
         
         /* ===== إعلانات ===== */
-        .ad-placeholder { background: #e2e8f0; border-radius: 15px; padding: 40px 20px; text-align: center; margin: 30px 0; color: #718096; font-size: 0.9rem; border: 2px dashed #a0aec0; }
+        .ad-placeholder {
+            background: linear-gradient(135deg, #f7fafc, #edf2f7);
+            border-radius: 16px;
+            padding: 40px 20px;
+            text-align: center;
+            margin: 30px 0;
+            color: #a0aec0;
+            font-size: 0.9rem;
+            border: 2px dashed #cbd5e0;
+        }
         
         /* ===== محتوى إضافي ===== */
-        .content-section { background: white; padding: 30px; border-radius: 20px; margin: 30px 0; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
-        .content-section h2 { color: #2d3748; margin-bottom: 15px; font-size: 1.8rem; }
-        .content-section ul { padding-right: 25px; color: #4a5568; }
-        .content-section li { margin-bottom: 10px; }
+        .content-section {
+            background: white;
+            padding: 35px 40px;
+            border-radius: 24px;
+            margin: 30px 0;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+            border: 1px solid rgba(255,255,255,0.5);
+        }
+        
+        .content-section h2 {
+            color: #1a202c;
+            margin-bottom: 15px;
+            font-size: 1.8rem;
+            font-weight: 700;
+        }
+        
+        .content-section ul {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .content-section ul li {
+            padding: 10px 0;
+            border-bottom: 1px solid #f0f4ff;
+            color: #4a5568;
+            font-size: 1rem;
+        }
+        
+        .content-section ul li:last-child {
+            border-bottom: none;
+        }
         
         /* ===== فوتر ===== */
-        footer { text-align: center; padding: 25px; color: #718096; border-top: 1px solid #e2e8f0; margin-top: 30px; }
+        footer {
+            text-align: center;
+            padding: 30px;
+            color: #a0aec0;
+            border-top: 1px solid #e2e8f0;
+            margin-top: 30px;
+            font-size: 0.9rem;
+        }
+        
+        footer strong {
+            color: #667eea;
+        }
         
         /* ===== توافق الجوال ===== */
-        @media (max-width: 600px) {
-            header h1 { font-size: 1.6rem; }
-            .stopwatch-display { font-size: 2.8rem; padding: 20px; }
+        @media (max-width: 768px) {
+            header h1 { font-size: 1.8rem; }
+            .stopwatch-display { font-size: 3rem; padding: 20px; }
             .stopwatch-controls button { padding: 10px 20px; font-size: 0.95rem; min-width: 80px; }
             nav { flex-direction: column; align-items: center; }
+            .tool-container { padding: 30px 20px; }
+            .content-section { padding: 25px 20px; }
+        }
+        
+        @media (max-width: 480px) {
+            .stopwatch-display { font-size: 2.2rem; }
+            .stopwatch-controls button { padding: 8px 16px; font-size: 0.85rem; min-width: 65px; }
         }
     </style>
 </head>
@@ -144,7 +321,7 @@
 
         <!-- ===== الهيدر ===== -->
         <header>
-            <h1 data-i18n="stopwatch_title">⏱️ Stopwatch & <span>Timer</span></h1>
+            <h1>⏱️ Stopwatch & <span>Timer</span></h1>
             <p data-i18n="stopwatch_subtitle">Track time accurately with this free online stopwatch</p>
         </header>
 
@@ -158,7 +335,7 @@
             <button id="langSwitchBtn" class="lang-btn" onclick="switchLanguage()">🌐 العربية</button>
         </nav>
 
-        <!-- ===== إعلان AdSense (أعلى) ===== -->
+        <!-- ===== إعلان ===== -->
         <div class="ad-placeholder" data-i18n="ad_placeholder">📢 [AdSense Ad will appear here]</div>
 
         <!-- ===== أداة ساعة الإيقاف ===== -->
@@ -184,10 +361,10 @@
             
         </div>
 
-        <!-- ===== إعلان AdSense (وسط) ===== -->
+        <!-- ===== إعلان ===== -->
         <div class="ad-placeholder" data-i18n="ad_placeholder">📢 [AdSense Ad will appear here]</div>
 
-        <!-- ===== محتوى إضافي (للسيو) ===== -->
+        <!-- ===== محتوى إضافي ===== -->
         <div class="content-section">
             <h2 data-i18n="stopwatch_howto_title">📌 How to Use the Stopwatch</h2>
             <ul data-i18n="stopwatch_howto_list">
@@ -200,12 +377,12 @@
             <p data-i18n="stopwatch_tips">💡 <strong>Tip:</strong> Use this stopwatch for studying (Pomodoro technique), cooking, sports training, or any activity that requires precise time tracking.</p>
         </div>
 
-        <!-- ===== إعلان AdSense (أسفل) ===== -->
+        <!-- ===== إعلان ===== -->
         <div class="ad-placeholder" data-i18n="ad_placeholder">📢 [AdSense Ad will appear here]</div>
 
         <!-- ===== الفوتر ===== -->
         <footer>
-            <p data-i18n="footer_text">All rights reserved © 2026 · Quick Web Tools</p>
+            <p data-i18n="footer_text">All rights reserved © 2026 · <strong>Quick Web Tools</strong></p>
             <p style="font-size: 0.85rem; margin-top: 5px;" data-i18n="footer_sub">QuickTools – Free tools for everyone</p>
         </footer>
 
@@ -214,9 +391,6 @@
     <!-- ===== ملفات الجافاسكريبت ===== -->
     <script src="translations.js"></script>
     <script>
-        // ============================
-        // دالة تبديل اللغة
-        // ============================
         function switchLanguage() {
             const newLang = currentLang === 'en' ? 'ar' : 'en';
             setLanguage(newLang);
@@ -286,9 +460,7 @@
             pauseBtn.disabled = true;
             lapBtn.disabled = true;
             
-            // مسح اللفات
             lapsList.innerHTML = '<p class="no-laps" data-i18n="stopwatch_no_laps">No laps recorded yet</p>';
-            // تحديث الترجمة للعنصر الجديد
             updatePageTexts();
         }
 
@@ -297,11 +469,9 @@
             lapCounter++;
             const lapTime = elapsedTime;
             
-            // إزالة رسالة "لا توجد لفات"
             const noLapsMsg = lapsList.querySelector('.no-laps');
             if (noLapsMsg) noLapsMsg.remove();
             
-            // إضافة اللفة الجديدة
             const lapItem = document.createElement('div');
             lapItem.className = 'lap-item';
             lapItem.innerHTML = `
@@ -309,18 +479,14 @@
                 <span class="lap-time">${formatTime(lapTime)}</span>
             `;
             lapsList.appendChild(lapItem);
-            
-            // تمرير إلى أسفل القائمة
             lapsList.scrollTop = lapsList.scrollHeight;
         }
 
-        // ===== ربط الأزرار =====
         startBtn.addEventListener('click', startTimer);
         pauseBtn.addEventListener('click', pauseTimer);
         resetBtn.addEventListener('click', resetTimer);
         lapBtn.addEventListener('click', recordLap);
 
-        // ===== تشغيل الترجمة عند تحميل الصفحة =====
         document.addEventListener('DOMContentLoaded', () => {
             updatePageTexts();
         });
