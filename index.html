@@ -3,11 +3,52 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title data-i18n="site_title">⚡ Quick Web Tools</title>
-    <meta name="description" content="Free web tools: Stopwatch, AI Text Detection, Video Downloader">
+    
+    <!-- ===== SEO الأساسي ===== -->
+    <title data-i18n="site_title">⚡ Quick Web Tools - Free Online Tools</title>
+    <meta name="description" content="Free web tools: Stopwatch, AI Text Detector, Video Downloader. Fast, free, and no registration required.">
+    <meta name="keywords" content="stopwatch, AI detector, video downloader, free tools, online tools, web tools">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://medtopp84-arch.github.io/quicktools-web/">
+    
+    <!-- ===== Open Graph (للمشاركة) ===== -->
+    <meta property="og:title" content="Quick Web Tools - Free Online Tools">
+    <meta property="og:description" content="Free web tools: Stopwatch, AI Detector, Video Downloader">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://medtopp84-arch.github.io/quicktools-web/">
+    <meta property="og:image" content="https://medtopp84-arch.github.io/quicktools-web/images/og-image.png">
+    
+    <!-- ===== Twitter Card ===== -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Quick Web Tools - Free Online Tools">
+    <meta name="twitter:description" content="Free web tools: Stopwatch, AI Detector, Video Downloader">
+    
+    <!-- ===== تعدد اللغات ===== -->
+    <link rel="alternate" hreflang="en" href="https://medtopp84-arch.github.io/quicktools-web/">
+    <link rel="alternate" hreflang="ar" href="https://medtopp84-arch.github.io/quicktools-web/?lang=ar">
+    <link rel="alternate" hreflang="x-default" href="https://medtopp84-arch.github.io/quicktools-web/">
+    
+    <!-- ===== Schema.org (بيانات منظمة) ===== -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "name": "Quick Web Tools",
+        "url": "https://medtopp84-arch.github.io/quicktools-web/",
+        "description": "Free web tools: Stopwatch, AI Text Detector, Video Downloader",
+        "potentialAction": {
+            "@type": "SearchAction",
+            "target": "https://medtopp84-arch.github.io/quicktools-web/search?q={search_term_string}",
+            "query-input": "required name=search_term_string"
+        }
+    }
+    </script>
+    
+    <!-- ===== AdSense ===== -->
+    <meta name="google-adsense-account" content="ca-pub-XXXXXXXXXXXXX">
     
     <style>
-        /* ===== إعادة تعيين الأساسيات ===== */
+        /* ===== CSS المتطور (نفس الكود السابق المحسن) ===== */
         * { margin: 0; padding: 0; box-sizing: border-box; }
         
         body {
@@ -18,7 +59,6 @@
             min-height: 100vh;
         }
         
-        /* ===== الحاوية الرئيسية ===== */
         .container {
             max-width: 1200px;
             margin: 0 auto;
@@ -42,16 +82,28 @@
             content: '';
             position: absolute;
             top: -50%;
-            right: -50%;
-            width: 100%;
-            height: 100%;
+            right: -30%;
+            width: 60%;
+            height: 200%;
             background: rgba(255,255,255,0.05);
-            border-radius: 50%;
             transform: rotate(15deg);
+            border-radius: 50%;
+        }
+        
+        header::after {
+            content: '';
+            position: absolute;
+            bottom: -40%;
+            left: -20%;
+            width: 50%;
+            height: 150%;
+            background: rgba(255,255,255,0.03);
+            transform: rotate(-10deg);
+            border-radius: 50%;
         }
         
         header h1 {
-            font-size: 3rem;
+            font-size: 3.2rem;
             font-weight: 800;
             margin-bottom: 10px;
             position: relative;
@@ -61,7 +113,7 @@
         
         header h1 span {
             color: #fbbf24;
-            text-shadow: 0 0 30px rgba(251, 191, 36, 0.3);
+            text-shadow: 0 0 40px rgba(251, 191, 36, 0.3);
         }
         
         header p {
@@ -87,6 +139,9 @@
             flex-wrap: wrap;
             align-items: center;
             border: 1px solid rgba(255,255,255,0.3);
+            position: sticky;
+            top: 10px;
+            z-index: 100;
         }
         
         nav a {
@@ -111,7 +166,6 @@
             color: white;
         }
         
-        /* ===== زر تغيير اللغة ===== */
         .lang-btn {
             background: linear-gradient(135deg, #667eea, #764ba2);
             color: white;
@@ -147,6 +201,16 @@
             border: 1px solid rgba(255,255,255,0.5);
             position: relative;
             overflow: hidden;
+            animation: fadeInUp 0.6s ease both;
+        }
+        
+        .tool-card:nth-child(1) { animation-delay: 0.1s; }
+        .tool-card:nth-child(2) { animation-delay: 0.2s; }
+        .tool-card:nth-child(3) { animation-delay: 0.3s; }
+        
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
         }
         
         .tool-card::before {
@@ -166,14 +230,19 @@
         }
         
         .tool-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 20px 60px rgba(102, 126, 234, 0.15);
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 30px 70px rgba(102, 126, 234, 0.18);
         }
         
         .tool-card .icon {
             font-size: 4rem;
             margin-bottom: 20px;
             display: block;
+            transition: transform 0.3s ease;
+        }
+        
+        .tool-card:hover .icon {
+            transform: scale(1.15) rotate(-5deg);
         }
         
         .tool-card h3 {
@@ -237,6 +306,12 @@
             color: #a0aec0;
             font-size: 0.9rem;
             border: 2px dashed #cbd5e0;
+            transition: all 0.3s ease;
+        }
+        
+        .ad-placeholder:hover {
+            border-color: #667eea;
+            background: linear-gradient(135deg, #edf2f7, #e2e8f0);
         }
         
         /* ===== محتوى إضافي ===== */
@@ -269,15 +344,50 @@
         }
         
         .content-section ul li {
-            padding: 10px 0;
+            padding: 12px 0;
             border-bottom: 1px solid #f0f4ff;
             color: #4a5568;
             font-size: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
         
         .content-section ul li:last-child {
             border-bottom: none;
         }
+        
+        /* ===== أزرار المشاركة الاجتماعية ===== */
+        .social-share {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin: 20px 0;
+        }
+        
+        .social-share a {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 24px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            color: white;
+        }
+        
+        .social-share a:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+        
+        .share-facebook { background: #1877f2; }
+        .share-twitter { background: #000000; }
+        .share-whatsapp { background: #25d366; }
+        .share-linkedin { background: #0a66c2; }
         
         /* ===== فوتر ===== */
         footer {
@@ -293,48 +403,42 @@
             color: #667eea;
         }
         
+        footer .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            flex-wrap: wrap;
+            margin-top: 15px;
+        }
+        
+        footer .footer-links a {
+            color: #a0aec0;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        
+        footer .footer-links a:hover {
+            color: #667eea;
+        }
+        
         /* ===== توافق الجوال ===== */
         @media (max-width: 768px) {
-            header {
-                padding: 30px 20px;
-            }
-            header h1 {
-                font-size: 2rem;
-            }
-            header p {
-                font-size: 1rem;
-            }
-            nav {
-                padding: 12px 15px;
-                gap: 5px;
-            }
-            nav a {
-                font-size: 0.85rem;
-                padding: 6px 14px;
-            }
-            .tools-grid {
-                grid-template-columns: 1fr;
-                gap: 20px;
-            }
-            .tool-card {
-                padding: 25px 20px;
-            }
-            .content-section {
-                padding: 25px 20px;
-            }
-            .content-section h2 {
-                font-size: 1.5rem;
-            }
+            header { padding: 30px 20px; }
+            header h1 { font-size: 2.2rem; }
+            header p { font-size: 1rem; }
+            nav { padding: 12px 15px; gap: 5px; position: static; }
+            nav a { font-size: 0.85rem; padding: 6px 14px; }
+            .tools-grid { grid-template-columns: 1fr; gap: 20px; }
+            .tool-card { padding: 25px 20px; }
+            .content-section { padding: 25px 20px; }
+            .content-section h2 { font-size: 1.5rem; }
+            .social-share a { padding: 8px 16px; font-size: 0.8rem; }
         }
         
         @media (max-width: 480px) {
-            header h1 {
-                font-size: 1.6rem;
-            }
-            .lang-btn {
-                font-size: 0.8rem;
-                padding: 6px 14px;
-            }
+            header h1 { font-size: 1.8rem; }
+            .lang-btn { font-size: 0.8rem; padding: 6px 14px; }
+            .tool-card .icon { font-size: 3rem; }
         }
     </style>
 </head>
@@ -358,8 +462,8 @@
             <button id="langSwitchBtn" class="lang-btn" onclick="switchLanguage()">🌐 العربية</button>
         </nav>
 
-        <!-- ===== إعلان ===== -->
-        <div class="ad-placeholder" data-i18n="ad_placeholder">📢 [AdSense Ad will appear here]</div>
+        <!-- ===== إعلان أعلى ===== -->
+        <div class="ad-placeholder" data-i18n="ad_placeholder">📢 [AdSense Ad - Top Banner]</div>
 
         <!-- ===== بطاقات الأدوات ===== -->
         <div class="tools-grid">
@@ -387,8 +491,8 @@
 
         </div>
 
-        <!-- ===== إعلان ===== -->
-        <div class="ad-placeholder" data-i18n="ad_placeholder">📢 [AdSense Ad will appear here]</div>
+        <!-- ===== إعلان وسط ===== -->
+        <div class="ad-placeholder" data-i18n="ad_placeholder">📢 [AdSense Ad - Middle Banner]</div>
 
         <!-- ===== محتوى إضافي ===== -->
         <div class="content-section">
@@ -401,16 +505,39 @@
             </ul>
         </div>
 
-        <!-- ===== إعلان ===== -->
-        <div class="ad-placeholder" data-i18n="ad_placeholder">📢 [AdSense Ad will appear here]</div>
+        <!-- ===== أزرار المشاركة الاجتماعية ===== -->
+        <div class="social-share">
+            <a href="https://www.facebook.com/sharer/sharer.php?u=https://medtopp84-arch.github.io/quicktools-web/" target="_blank" class="share-facebook">📘 Share</a>
+            <a href="https://twitter.com/intent/tweet?url=https://medtopp84-arch.github.io/quicktools-web/&text=Check%20out%20these%20free%20web%20tools!" target="_blank" class="share-twitter">🐦 Tweet</a>
+            <a href="https://api.whatsapp.com/send?text=Check%20out%20these%20free%20web%20tools!%20https://medtopp84-arch.github.io/quicktools-web/" target="_blank" class="share-whatsapp">💬 Share</a>
+            <a href="https://www.linkedin.com/sharing/share-offsite/?url=https://medtopp84-arch.github.io/quicktools-web/" target="_blank" class="share-linkedin">🔗 Share</a>
+        </div>
+
+        <!-- ===== إعلان أسفل ===== -->
+        <div class="ad-placeholder" data-i18n="ad_placeholder">📢 [AdSense Ad - Bottom Banner]</div>
 
         <!-- ===== الفوتر ===== -->
         <footer>
             <p data-i18n="footer_text">All rights reserved © 2026 · <strong>Quick Web Tools</strong></p>
             <p style="font-size: 0.85rem; margin-top: 5px;" data-i18n="footer_sub">QuickTools – Free tools for everyone</p>
+            <div class="footer-links">
+                <a href="index.html">Home</a>
+                <a href="blog.html">Blog</a>
+                <a href="#">Privacy Policy</a>
+                <a href="#">Contact</a>
+            </div>
         </footer>
 
     </div>
+
+    <!-- ===== Google Analytics ===== -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-XXXXXXXXXX');
+    </script>
 
     <!-- ===== ملفات الجافاسكريبت ===== -->
     <script src="translations.js"></script>
@@ -418,6 +545,10 @@
         function switchLanguage() {
             const newLang = currentLang === 'en' ? 'ar' : 'en';
             setLanguage(newLang);
+            // تحديث URL مع معامل اللغة لتحسين السيو
+            const url = new URL(window.location);
+            url.searchParams.set('lang', newLang);
+            window.history.replaceState({}, '', url);
         }
     </script>
 
