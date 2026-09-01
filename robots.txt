@@ -1,0 +1,6 @@
+# Allow all crawlers
+User-agent: *
+Allow: /
+
+# Sitemap location
+Sitemap: https://medtopp84-arch.github.io/quicktools-web/sitemap.xml
