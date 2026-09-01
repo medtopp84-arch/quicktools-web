@@ -3,11 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title data-i18n="stopwatch_title">⏱️ Stopwatch - Quick Web Tools</title>
-    <meta name="description" content="Free online stopwatch and timer. Perfect for studying, cooking, or exercise.">
+    
+    <!-- ===== SEO ===== -->
+    <title>⏱️ Free Online Stopwatch & Timer - Quick Web Tools</title>
+    <meta name="description" content="Free online stopwatch and timer. Perfect for studying, cooking, exercise, and Pomodoro technique. Accurate and easy to use.">
+    <meta name="keywords" content="stopwatch, timer, online stopwatch, countdown, Pomodoro, free stopwatch">
+    <link rel="canonical" href="https://medtopp84-arch.github.io/quicktools-web/stopwatch.html">
+    
+    <!-- ===== Open Graph ===== -->
+    <meta property="og:title" content="Free Online Stopwatch & Timer - Quick Web Tools">
+    <meta property="og:description" content="Accurate online stopwatch with lap tracking. Free and easy to use.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://medtopp84-arch.github.io/quicktools-web/stopwatch.html">
     
     <style>
-        /* ===== إعادة تعيين الأساسيات ===== */
+        /* ===== نفس التصميم المتطور ===== */
         * { margin: 0; padding: 0; box-sizing: border-box; }
         
         body {
@@ -18,11 +28,7 @@
             min-height: 100vh;
         }
         
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 20px;
-        }
+        .container { max-width: 1200px; margin: 0 auto; padding: 20px; }
         
         /* ===== الهيدر ===== */
         header {
@@ -33,22 +39,25 @@
             text-align: center;
             margin-bottom: 30px;
             box-shadow: 0 20px 60px rgba(102, 126, 234, 0.4);
+            position: relative;
+            overflow: hidden;
         }
         
-        header h1 {
-            font-size: 2.5rem;
-            font-weight: 800;
+        header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -30%;
+            width: 60%;
+            height: 200%;
+            background: rgba(255,255,255,0.05);
+            transform: rotate(15deg);
+            border-radius: 50%;
         }
         
-        header h1 span {
-            color: #fbbf24;
-        }
-        
-        header p {
-            font-size: 1.1rem;
-            opacity: 0.95;
-            font-weight: 300;
-        }
+        header h1 { font-size: 2.8rem; font-weight: 800; position: relative; z-index: 1; }
+        header h1 span { color: #fbbf24; }
+        header p { font-size: 1.1rem; opacity: 0.95; position: relative; z-index: 1; font-weight: 300; }
         
         /* ===== شريط التنقل ===== */
         nav {
@@ -64,6 +73,9 @@
             flex-wrap: wrap;
             align-items: center;
             border: 1px solid rgba(255,255,255,0.3);
+            position: sticky;
+            top: 10px;
+            z-index: 100;
         }
         
         nav a {
@@ -117,7 +129,7 @@
         }
         
         .stopwatch-display {
-            font-size: 5rem;
+            font-size: 6rem;
             font-weight: 700;
             font-family: 'Courier New', monospace;
             color: #1a202c;
@@ -125,9 +137,20 @@
             padding: 30px 20px;
             border-radius: 16px;
             margin-bottom: 30px;
-            letter-spacing: 4px;
+            letter-spacing: 6px;
             border: 2px solid #e2e8f0;
             box-shadow: inset 0 2px 10px rgba(0,0,0,0.04);
+            transition: all 0.3s ease;
+        }
+        
+        .stopwatch-display.running {
+            border-color: #48bb78;
+            box-shadow: 0 0 30px rgba(72, 187, 120, 0.1);
+        }
+        
+        .stopwatch-display.paused {
+            border-color: #ed8936;
+            box-shadow: 0 0 30px rgba(237, 137, 54, 0.1);
         }
         
         .stopwatch-controls {
@@ -145,58 +168,62 @@
             font-size: 1.1rem;
             font-weight: 600;
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             min-width: 120px;
         }
         
         .stopwatch-controls button:hover:not(:disabled) {
-            transform: translateY(-3px);
+            transform: translateY(-4px) scale(1.05);
         }
         
         .stopwatch-controls button:disabled {
-            opacity: 0.5;
+            opacity: 0.4;
             cursor: not-allowed;
-            transform: none;
+            transform: none !important;
+        }
+        
+        .stopwatch-controls button:active:not(:disabled) {
+            transform: scale(0.95);
         }
         
         .btn-start {
             background: linear-gradient(135deg, #48bb78, #38a169);
             color: white;
-            box-shadow: 0 4px 15px rgba(72, 187, 120, 0.3);
+            box-shadow: 0 4px 20px rgba(72, 187, 120, 0.3);
         }
         
         .btn-start:hover:not(:disabled) {
-            box-shadow: 0 8px 30px rgba(72, 187, 120, 0.4);
+            box-shadow: 0 8px 35px rgba(72, 187, 120, 0.5);
         }
         
         .btn-pause {
             background: linear-gradient(135deg, #ed8936, #dd6b20);
             color: white;
-            box-shadow: 0 4px 15px rgba(237, 137, 54, 0.3);
+            box-shadow: 0 4px 20px rgba(237, 137, 54, 0.3);
         }
         
         .btn-pause:hover:not(:disabled) {
-            box-shadow: 0 8px 30px rgba(237, 137, 54, 0.4);
+            box-shadow: 0 8px 35px rgba(237, 137, 54, 0.5);
         }
         
         .btn-reset {
             background: linear-gradient(135deg, #fc8181, #f56565);
             color: white;
-            box-shadow: 0 4px 15px rgba(252, 129, 129, 0.3);
+            box-shadow: 0 4px 20px rgba(252, 129, 129, 0.3);
         }
         
         .btn-reset:hover:not(:disabled) {
-            box-shadow: 0 8px 30px rgba(252, 129, 129, 0.4);
+            box-shadow: 0 8px 35px rgba(252, 129, 129, 0.5);
         }
         
         .btn-lap {
             background: linear-gradient(135deg, #63b3ed, #4299e1);
             color: white;
-            box-shadow: 0 4px 15px rgba(99, 179, 237, 0.3);
+            box-shadow: 0 4px 20px rgba(99, 179, 237, 0.3);
         }
         
         .btn-lap:hover:not(:disabled) {
-            box-shadow: 0 8px 30px rgba(99, 179, 237, 0.4);
+            box-shadow: 0 8px 35px rgba(99, 179, 237, 0.5);
         }
         
         /* ===== لائحة اللفات ===== */
@@ -205,9 +232,23 @@
             border-radius: 16px;
             padding: 20px;
             margin-top: 20px;
-            max-height: 250px;
+            max-height: 300px;
             overflow-y: auto;
             border: 1px solid #e2e8f0;
+        }
+        
+        .laps-container::-webkit-scrollbar {
+            width: 6px;
+        }
+        
+        .laps-container::-webkit-scrollbar-track {
+            background: #edf2f7;
+            border-radius: 10px;
+        }
+        
+        .laps-container::-webkit-scrollbar-thumb {
+            background: #667eea;
+            border-radius: 10px;
         }
         
         .laps-container h3 {
@@ -215,6 +256,17 @@
             margin-bottom: 15px;
             font-size: 1.1rem;
             font-weight: 600;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .laps-container h3 span {
+            background: #667eea;
+            color: white;
+            padding: 2px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
         }
         
         .lap-item {
@@ -227,11 +279,19 @@
             background: white;
             border-radius: 8px;
             margin-bottom: 5px;
+            animation: slideIn 0.3s ease both;
+        }
+        
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateX(-20px); }
+            to { opacity: 1; transform: translateX(0); }
         }
         
         .lap-item:last-child { border-bottom: none; margin-bottom: 0; }
         .lap-item .lap-number { color: #667eea; font-weight: 700; }
         .lap-item .lap-time { color: #1a202c; font-weight: 600; }
+        .lap-item .lap-best { color: #48bb78; font-weight: 700; }
+        .lap-item .lap-worst { color: #fc8181; font-weight: 700; }
         
         .no-laps {
             color: #a0aec0;
@@ -250,6 +310,12 @@
             color: #a0aec0;
             font-size: 0.9rem;
             border: 2px dashed #cbd5e0;
+            transition: all 0.3s ease;
+        }
+        
+        .ad-placeholder:hover {
+            border-color: #667eea;
+            background: linear-gradient(135deg, #edf2f7, #e2e8f0);
         }
         
         /* ===== محتوى إضافي ===== */
@@ -281,9 +347,7 @@
             font-size: 1rem;
         }
         
-        .content-section ul li:last-child {
-            border-bottom: none;
-        }
+        .content-section ul li:last-child { border-bottom: none; }
         
         /* ===== فوتر ===== */
         footer {
@@ -295,23 +359,37 @@
             font-size: 0.9rem;
         }
         
-        footer strong {
-            color: #667eea;
+        footer strong { color: #667eea; }
+        
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            flex-wrap: wrap;
+            margin-top: 15px;
         }
+        
+        .footer-links a {
+            color: #a0aec0;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        
+        .footer-links a:hover { color: #667eea; }
         
         /* ===== توافق الجوال ===== */
         @media (max-width: 768px) {
             header h1 { font-size: 1.8rem; }
-            .stopwatch-display { font-size: 3rem; padding: 20px; }
+            .stopwatch-display { font-size: 3.5rem; padding: 20px; letter-spacing: 3px; }
             .stopwatch-controls button { padding: 10px 20px; font-size: 0.95rem; min-width: 80px; }
-            nav { flex-direction: column; align-items: center; }
+            nav { flex-direction: column; align-items: center; position: static; }
             .tool-container { padding: 30px 20px; }
             .content-section { padding: 25px 20px; }
         }
         
         @media (max-width: 480px) {
-            .stopwatch-display { font-size: 2.2rem; }
-            .stopwatch-controls button { padding: 8px 16px; font-size: 0.85rem; min-width: 65px; }
+            .stopwatch-display { font-size: 2.5rem; letter-spacing: 2px; }
+            .stopwatch-controls button { padding: 8px 14px; font-size: 0.8rem; min-width: 60px; }
         }
     </style>
 </head>
@@ -322,21 +400,21 @@
         <!-- ===== الهيدر ===== -->
         <header>
             <h1>⏱️ Stopwatch & <span>Timer</span></h1>
-            <p data-i18n="stopwatch_subtitle">Track time accurately with this free online stopwatch</p>
+            <p>Track time accurately with this free online stopwatch</p>
         </header>
 
         <!-- ===== شريط التنقل ===== -->
         <nav>
-            <a href="index.html" data-i18n="nav_home">🏠 Home</a>
-            <a href="stopwatch.html" class="active" data-i18n="nav_stopwatch">⏱️ Stopwatch</a>
-            <a href="detector.html" data-i18n="nav_detector">🔍 AI Detector</a>
-            <a href="downloader.html" data-i18n="nav_downloader">📥 Downloader</a>
-            <a href="blog.html" data-i18n="nav_blog">📝 Blog</a>
+            <a href="index.html">🏠 Home</a>
+            <a href="stopwatch.html" class="active">⏱️ Stopwatch</a>
+            <a href="detector.html">🔍 AI Detector</a>
+            <a href="downloader.html">📥 Downloader</a>
+            <a href="blog.html">📝 Blog</a>
             <button id="langSwitchBtn" class="lang-btn" onclick="switchLanguage()">🌐 العربية</button>
         </nav>
 
         <!-- ===== إعلان ===== -->
-        <div class="ad-placeholder" data-i18n="ad_placeholder">📢 [AdSense Ad will appear here]</div>
+        <div class="ad-placeholder">📢 [AdSense Ad - Top Banner]</div>
 
         <!-- ===== أداة ساعة الإيقاف ===== -->
         <div class="tool-container">
@@ -346,47 +424,62 @@
             </div>
             
             <div class="stopwatch-controls">
-                <button class="btn-start" id="startBtn" data-i18n="stopwatch_start">▶ Start</button>
-                <button class="btn-pause" id="pauseBtn" disabled data-i18n="stopwatch_pause">⏸ Pause</button>
-                <button class="btn-reset" id="resetBtn" data-i18n="stopwatch_reset">⟲ Reset</button>
-                <button class="btn-lap" id="lapBtn" disabled data-i18n="stopwatch_lap">⏱ Lap</button>
+                <button class="btn-start" id="startBtn">▶ Start</button>
+                <button class="btn-pause" id="pauseBtn" disabled>⏸ Pause</button>
+                <button class="btn-reset" id="resetBtn">⟲ Reset</button>
+                <button class="btn-lap" id="lapBtn" disabled>⏱ Lap</button>
             </div>
             
             <div class="laps-container">
-                <h3 data-i18n="stopwatch_laps">📋 Laps</h3>
+                <h3>📋 Laps <span id="lapCount">0</span></h3>
                 <div id="lapsList">
-                    <p class="no-laps" data-i18n="stopwatch_no_laps">No laps recorded yet</p>
+                    <p class="no-laps">No laps recorded yet</p>
                 </div>
             </div>
             
         </div>
 
         <!-- ===== إعلان ===== -->
-        <div class="ad-placeholder" data-i18n="ad_placeholder">📢 [AdSense Ad will appear here]</div>
+        <div class="ad-placeholder">📢 [AdSense Ad - Middle Banner]</div>
 
         <!-- ===== محتوى إضافي ===== -->
         <div class="content-section">
-            <h2 data-i18n="stopwatch_howto_title">📌 How to Use the Stopwatch</h2>
-            <ul data-i18n="stopwatch_howto_list">
+            <h2>📌 How to Use the Stopwatch</h2>
+            <ul>
                 <li>🔹 Click <strong>Start</strong> to begin timing</li>
                 <li>🔹 Click <strong>Lap</strong> to record a lap time without stopping</li>
                 <li>🔹 Click <strong>Pause</strong> to pause the stopwatch</li>
                 <li>🔹 Click <strong>Reset</strong> to reset to zero</li>
             </ul>
             <br>
-            <p data-i18n="stopwatch_tips">💡 <strong>Tip:</strong> Use this stopwatch for studying (Pomodoro technique), cooking, sports training, or any activity that requires precise time tracking.</p>
+            <p>💡 <strong>Tip:</strong> Use this stopwatch for studying (Pomodoro technique), cooking, sports training, or any activity that requires precise time tracking.</p>
         </div>
 
         <!-- ===== إعلان ===== -->
-        <div class="ad-placeholder" data-i18n="ad_placeholder">📢 [AdSense Ad will appear here]</div>
+        <div class="ad-placeholder">📢 [AdSense Ad - Bottom Banner]</div>
 
         <!-- ===== الفوتر ===== -->
         <footer>
-            <p data-i18n="footer_text">All rights reserved © 2026 · <strong>Quick Web Tools</strong></p>
-            <p style="font-size: 0.85rem; margin-top: 5px;" data-i18n="footer_sub">QuickTools – Free tools for everyone</p>
+            <p>All rights reserved © 2026 · <strong>Quick Web Tools</strong></p>
+            <p style="font-size: 0.85rem; margin-top: 5px;">QuickTools – Free tools for everyone</p>
+            <div class="footer-links">
+                <a href="index.html">Home</a>
+                <a href="blog.html">Blog</a>
+                <a href="#">Privacy Policy</a>
+                <a href="#">Contact</a>
+            </div>
         </footer>
 
     </div>
+
+    <!-- ===== Google Analytics ===== -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-XXXXXXXXXX');
+    </script>
 
     <!-- ===== ملفات الجافاسكريبت ===== -->
     <script src="translations.js"></script>
@@ -397,13 +490,15 @@
         }
 
         // ============================
-        // كود ساعة الإيقاف
+        // كود ساعة الإيقاف المتطور
         // ============================
         let startTime = 0;
         let elapsedTime = 0;
         let timerInterval = null;
         let isRunning = false;
         let lapCounter = 0;
+        let bestLap = Infinity;
+        let worstLap = 0;
 
         const display = document.getElementById('display');
         const startBtn = document.getElementById('startBtn');
@@ -411,6 +506,7 @@
         const resetBtn = document.getElementById('resetBtn');
         const lapBtn = document.getElementById('lapBtn');
         const lapsList = document.getElementById('lapsList');
+        const lapCount = document.getElementById('lapCount');
 
         function formatTime(ms) {
             const totalSeconds = Math.floor(ms / 1000);
@@ -428,6 +524,8 @@
             if (isRunning) return;
             isRunning = true;
             startTime = Date.now() - elapsedTime;
+            display.classList.add('running');
+            display.classList.remove('paused');
             
             timerInterval = setInterval(() => {
                 elapsedTime = Date.now() - startTime;
@@ -443,6 +541,8 @@
             if (!isRunning) return;
             isRunning = false;
             clearInterval(timerInterval);
+            display.classList.remove('running');
+            display.classList.add('paused');
             
             startBtn.disabled = false;
             pauseBtn.disabled = true;
@@ -454,14 +554,17 @@
             isRunning = false;
             elapsedTime = 0;
             lapCounter = 0;
+            bestLap = Infinity;
+            worstLap = 0;
             updateDisplay();
+            display.classList.remove('running', 'paused');
             
             startBtn.disabled = false;
             pauseBtn.disabled = true;
             lapBtn.disabled = true;
             
-            lapsList.innerHTML = '<p class="no-laps" data-i18n="stopwatch_no_laps">No laps recorded yet</p>';
-            updatePageTexts();
+            lapsList.innerHTML = '<p class="no-laps">No laps recorded yet</p>';
+            lapCount.textContent = '0';
         }
 
         function recordLap() {
@@ -469,23 +572,57 @@
             lapCounter++;
             const lapTime = elapsedTime;
             
+            // تحديث أفضل وأسوأ لفة
+            if (lapCounter === 1) {
+                bestLap = lapTime;
+                worstLap = lapTime;
+            } else {
+                if (lapTime < bestLap) bestLap = lapTime;
+                if (lapTime > worstLap) worstLap = lapTime;
+            }
+            
             const noLapsMsg = lapsList.querySelector('.no-laps');
             if (noLapsMsg) noLapsMsg.remove();
             
             const lapItem = document.createElement('div');
             lapItem.className = 'lap-item';
+            
+            let lapClass = '';
+            if (lapTime === bestLap && lapCounter > 1) lapClass = 'lap-best';
+            if (lapTime === worstLap && lapCounter > 1) lapClass = 'lap-worst';
+            
             lapItem.innerHTML = `
                 <span class="lap-number">Lap ${lapCounter}</span>
-                <span class="lap-time">${formatTime(lapTime)}</span>
+                <span class="lap-time ${lapClass}">${formatTime(lapTime)}</span>
             `;
             lapsList.appendChild(lapItem);
             lapsList.scrollTop = lapsList.scrollHeight;
+            lapCount.textContent = lapCounter;
         }
 
+        // ===== ربط الأزرار =====
         startBtn.addEventListener('click', startTimer);
         pauseBtn.addEventListener('click', pauseTimer);
         resetBtn.addEventListener('click', resetTimer);
         lapBtn.addEventListener('click', recordLap);
+
+        // ===== اختصارات لوحة المفاتيح =====
+        document.addEventListener('keydown', (e) => {
+            if (e.key === ' ' || e.key === 'Space') {
+                e.preventDefault();
+                if (isRunning) {
+                    pauseTimer();
+                } else {
+                    startTimer();
+                }
+            }
+            if (e.key === 'r' || e.key === 'R') {
+                resetTimer();
+            }
+            if (e.key === 'l' || e.key === 'L') {
+                recordLap();
+            }
+        });
 
         document.addEventListener('DOMContentLoaded', () => {
             updatePageTexts();
